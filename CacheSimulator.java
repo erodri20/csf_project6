@@ -91,25 +91,101 @@ public class CacheSimulator {
         cycles++;
       } else {
         //handle miss
-        cycles += cache.handleLoadMiss(memory_address, least_recently_used);
+        if(write_allocate == 1 && write_through == 0) {
+          //write back with write allocate
+          cycles += cache.handleLoadMiss(memory_address, least_recently_used);
+        } else {
+          //read from memory
+          cycles+= 100;
+        }
         load_misses++;
+
       }
 
     }
 
     public static void store(String memory_address) {
-      if(cache.search(memory_address).equals("hit")) {
-        //handle hit
-        store_hits++;
-        cycles++;
-        cache.handleStoreHit(memory_address);
-      } else {
-        //handle miss
-        if(write_allocate == 0) {
-          // main memory is written to but the cache is not modified
-          cycles += 100;
+      String result = cache.search(memory_address);
+      if(write_allocate == 1) {
+        //Write through with write allocate
+        if(write_through == 1) {
+          //handle hit
+          if(result.equals("hit")) {
+            //writes to cache and to main memory
+            cycles++;
+            cycles += 100;
+            store_hits++;
+          } else {//handle miss
+            //updates the block in main memory
+            cycles += 100;
+            store_misses++;
+          }
+        } else {//write back with write allocate
+          //handle hit
+          if(result.equals("hit")) {
+            //set block as dirty
+            cache.markAsDirty(memory_address);
+            cycles++;
+            store_hits++;
+          } else {//handle miss
+            //updates block in main memory
+            cycles+= 100;
+            //brings block to cache with lru or fifo method
+            if(least_recently_used == 1) {
+              //use lru method
+              if(cache.leastRecentlyUsed()) {
+                //if the block chosen was dirty
+                //data in block was written back to memory
+                //add 100 to cycles
+                cycles += 100;
+              }
+              //read data from memory into cache block
+              cycles+= 100;
+            } else {
+              //use fifo method
+              if(cache.fifo()) {
+                //if the block chosen was dirty
+                //data in block was written back to memory
+                //add 100 to cycles
+                cycles += 100;
+              }
+              //read data from memory into cache block
+              cycles += 100;
+            }
+            //mark block as dirty
+            cache.markAsDirty(memory_address);
+            cycles++;
+            store_misses++;
+          }
         }
-        store_misses++;
+      } else {
+        //Write through with no write allocate
+        if(write_through == 1) {
+          //handle hit
+          if(result.equals("hit")) {
+            //writes to cache and to main memory
+            cycles++;
+            cycles += 100;
+            store_hits++;
+          } else {//handle miss
+            //updates the block in main memory
+            cycles+= 100;
+            store_misses++;
+          }
+        } else {//write back with no write allocate
+          //handle hit
+          if(result.equals("hit")) {
+            //set block as dirty
+            cache.markAsDirty(memory_address);
+            cycles++;
+            store_hits++;
+          } else {//handle miss
+            //updates block in main memory
+            //it is incredibly innefficient but not impossible
+            cycles+= 100;
+            store_misses++;
+          }
+        }
       }
     }
 }

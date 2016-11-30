@@ -39,11 +39,13 @@ public class Cache {
           //if the block chosen was dirty, add 100 to cycles
           cycles += 100;
         }
+        cycles += 100;
       } else {
         if(fifo()) {
           //if the block chosen was dirty, add 100 to cycles
           cycles += 100;
         }
+        cycles += 100;
       }
       //mark the cache block as not dirty adds a cycle
       cycles++;
@@ -95,7 +97,7 @@ public class Cache {
       }
     }
 
-    public void handleStoreHit(String memory_address) {
+    public void markAsDirty(String memory_address) {
       //mark the block as dirty
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].containsBlock(memory_address)) {
