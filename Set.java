@@ -12,9 +12,9 @@ public class Set {
         }
     }
 
-    public String search(int memory_address) {
+    public String search(String memory_address) {
       for(int i = 0; i < set.length; i++) {
-        if(set[i].search(memory_address).equals("hit")) {
+        if(set[i].containsAddress(memory_address)) {
             set[i].touchBlock();
             return "hit";
         }
@@ -22,7 +22,7 @@ public class Set {
       return "miss";
     }
 
-    public boolean insertIfEmpty(int memory_address) {
+    public boolean insertIfEmpty(String memory_address) {
       for(int i = 0; i < set.length; i++) {
         if(set[i].insertIfEmpty(memory_address)) {
           set[i].touchBlock();
@@ -44,7 +44,7 @@ public class Set {
       return fifo_block;
     }
 
-    public boolean resetFifo(int memory_address) {
+    public boolean resetFifo(String memory_address) {
       for(int i = 0; i < set.length; i++) {
         if(set[i].containsAddress(memory_address)) {
           set[i].setTimeAdded(System.currentTimeMillis());
@@ -62,12 +62,29 @@ public class Set {
           lru_time = set[i].getTimeStamp();
           lru_block = set[i];
         }
-        //if this set contains the lru block
-          //call least recently used method on that block
-          //return whether or not it was dirty
       }
 
       return lru_block;
+    }
+
+    public void markAsNonDirty(String memory_address) {
+      for(int i = 0; i < set.length; i++) {
+        if(set[i].containsAddress(memory_address)) {
+          set[i].markAsNonDirty();
+          set[i].touchBlock();
+          break;
+        }
+      }
+    }
+
+    public boolean containsBlock(String memory_address) {
+      for(int i = 0; i < set.length; i++) {
+        if(set[i].containsAddress(memory_address)) {
+          set[i].markAsDirty();
+          return true;
+        }
+      }
+      return false;
     }
 
 }

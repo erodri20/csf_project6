@@ -14,7 +14,7 @@ public class Cache {
         }
     }
 
-    public String search(int memory_address) {
+    public String search(String memory_address) {
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].search(memory_address).equals("hit")) {
             return "hit";
@@ -23,26 +23,30 @@ public class Cache {
       return "miss";
     }
 
-    public int handleLoadMiss(int memory_address, int least_recently_used) {
+    public int handleLoadMiss(String memory_address, int least_recently_used) {
       //search for empty block
       int cycles = 0;
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].insertIfEmpty(memory_address)) {//returns true if inserted, false otherwise
-          //cycles = cycles + 100 + 1;
+          cycles += 100;
+          cycles++;
           return cycles;
         }
       }
       //if cache is full
       if(least_recently_used == 1) {
-        leastRecentlyUsed();
+        if(leastRecentlyUsed()) {
+          //if the block chosen was dirty, add 100 to cycles
+          cycles += 100;
+        }
       } else {
-        fifo();
+        if(fifo()) {
+          //if the block chosen was dirty, add 100 to cycles
+          cycles += 100;
+        }
       }
-        //block is result of lru or fifo
-        //if block is dirty
-          // add 100 to cycles to write back to memory
-        // add 1 to cycles to read into cache
-        //mark as not dirty
+      //mark the cache block as not dirty adds a cycle
+      cycles++;
       return cycles;
     }
 
@@ -56,10 +60,13 @@ public class Cache {
         }
       }
       resetFifo(fifo_block.getStartingAddress());
+      if(fifo_block.isDirty()) {
+        markAsNonDirty(fifo_block.getStartingAddress());
+      }
       return fifo_block.isDirty();
     }
 
-    public void resetFifo(int memory_address) {
+    public void resetFifo(String memory_address) {
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].resetFifo(memory_address)) {
           break;
@@ -76,7 +83,25 @@ public class Cache {
           lru_block = cache[i].leastRecentlyUsed();
         }
       }
+      if(lru_block.isDirty()) {
+        markAsNonDirty(lru_block.getStartingAddress());
+      }
       return lru_block.isDirty();
-}
+    }
+
+    public void markAsNonDirty(String memory_address) {
+      for(int i = 0; i < cache.length; i++) {
+        cache[i].markAsNonDirty(memory_address);
+      }
+    }
+
+    public void handleStoreHit(String memory_address) {
+      //mark the block as dirty
+      for(int i = 0; i < cache.length; i++) {
+        if(cache[i].containsBlock(memory_address)) {
+          break;
+        }
+      }
+    }
 
 }
