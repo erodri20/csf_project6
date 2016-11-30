@@ -36,11 +36,26 @@ public class Block {
       return false;
     }
 
-    public int getTimeStamp() {
+    public long getTimeStamp() {
       return time_stamp;
     }
-    public int getTimeAdded() {
+    public long getTimeAdded() {
       return time_added;
+    }
+
+    public void setTimeAdded(long new_time) {
+      time_added = new_time;
+    }
+
+    public int getStartingAddress() { return block[0]; }
+
+    public boolean containsAddress(int memory_address) {
+      for(int i = 0; i < block.length; i++) {
+        if(block[i] == memory_address) {
+          return true;
+        }
+      }
+      return false;
     }
 
     public void touchBlock() {
@@ -50,19 +65,4 @@ public class Block {
       return dirty;
     }
 
-
-
-/*
-    public boolean read(int x) {
-        boolean hit = false;
-
-        for (int i = 0; i < addresses.length; i++) {
-            if (addresses[i] == x) {
-            hit = true;
-            return hit;
-            }
-        }
-        return hit;
-    }
-    */
 }

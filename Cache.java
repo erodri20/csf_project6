@@ -25,33 +25,29 @@ public class Cache {
 
     public int handleLoadMiss(int memory_address, int least_recently_used) {
       //search for empty block
-      int cycles;
+      int cycles = 0;
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].insertIfEmpty(memory_address)) {//returns true if inserted, false otherwise
           //cycles = cycles + 100 + 1;
           return cycles;
         }
       }
-
-      //if miss (cache is full)
-      //if LRU, call LRU to find block to use
+      //if cache is full
       if(least_recently_used == 1) {
-        leastRecentlyUsed(memory_address);
+        leastRecentlyUsed();
       } else {
-        //fifo
-        fifo(memory_address);
+        fifo();
       }
-        //if FIFO, call FIFO to find block to use
         //block is result of lru or fifo
         //if block is dirty
           // add 100 to cycles to write back to memory
         // add 1 to cycles to read into cache
         //mark as not dirty
+      return cycles;
     }
 
-    public boolean fifo(int memory_address) {
-      //update the fifo
-      int fifo_time = cache[0].fifo().getTimeAdded();
+    public boolean fifo() {
+      long fifo_time = cache[0].fifo().getTimeAdded();
       Block fifo_block = cache[0].fifo();
       for(int i = 0; i < cache.length; i++) {
         if (cache[i].fifo().getTimeAdded() < fifo_time) {
@@ -59,11 +55,20 @@ public class Cache {
           fifo_block = cache[i].fifo();
         }
       }
+      resetFifo(fifo_block.getStartingAddress());
       return fifo_block.isDirty();
     }
 
-    public boolean leastRecentlyUsed(int memory_address) {
-      int lru_time = cache[0].leastRecentlyUsed().getTimeStamp();
+    public void resetFifo(int memory_address) {
+      for(int i = 0; i < cache.length; i++) {
+        if(cache[i].resetFifo(memory_address)) {
+          break;
+        }
+      }
+    }
+
+    public boolean leastRecentlyUsed() {
+      long lru_time = cache[0].leastRecentlyUsed().getTimeStamp();
       Block lru_block = cache[0].leastRecentlyUsed();
       for(int i = 0; i < cache.length; i++) {
         if (cache[i].leastRecentlyUsed().getTimeStamp() < lru_time) {
@@ -73,18 +78,5 @@ public class Cache {
       }
       return lru_block.isDirty();
 }
-/*
-
-    public boolean read(int x) {
-        boolean hit = false;
-        for (int i = 0; i < sets.length; i++) {
-            hit = sets[i].read(x);
-            if (hit) {
-                return hit;
-            }
-        }
-        return hit;
-    }
-    */
 
 }

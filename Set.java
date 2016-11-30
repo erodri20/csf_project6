@@ -22,7 +22,7 @@ public class Set {
       return "miss";
     }
 
-    public boolean insertIfEmpty(memory_address) {
+    public boolean insertIfEmpty(int memory_address) {
       for(int i = 0; i < set.length; i++) {
         if(set[i].insertIfEmpty(memory_address)) {
           set[i].touchBlock();
@@ -32,24 +32,30 @@ public class Set {
       return false;
     }
 
-    public Block fifo(int memory_address) {
-      int fifo_time = set[0].getTimeAdded();
+    public Block fifo() {
+      long fifo_time = set[0].getTimeAdded();
       Block fifo_block = set[0];
       for(int i = 0; i < set.length; i++) {
         if (set[i].getTimeAdded() < fifo_time) {
           fifo_time = set[i].getTimeAdded();
           fifo_block = set[i];
         }
-        //if this set contains the lru block
-          //call least recently used method on that block
-          //return whether or not it was dirty
       }
-
-      return lru_block;
+      return fifo_block;
     }
 
-    public Block leastRecentlyUsed(int memory_address) {
-      int lru_time = set[0].getTimeStamp();
+    public boolean resetFifo(int memory_address) {
+      for(int i = 0; i < set.length; i++) {
+        if(set[i].containsAddress(memory_address)) {
+          set[i].setTimeAdded(System.currentTimeMillis());
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public Block leastRecentlyUsed() {
+      long lru_time = set[0].getTimeStamp();
       Block lru_block = set[0];
       for(int i = 0; i < set.length; i++) {
         if (set[i].getTimeStamp() < lru_time) {
@@ -63,18 +69,5 @@ public class Set {
 
       return lru_block;
     }
-/*
-    public boolean read (int x) {
-        boolean hit = false;
-        for (int i = 0; i < blocks.length; i++) {
-            hit = blocks[i].read(x);
-            if (hit) {
-                return hit;
-            }
-        }
-        return hit;
-
-    }
-  */
 
 }

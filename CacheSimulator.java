@@ -9,6 +9,9 @@ public class CacheSimulator {
     private static int store_hits;
     private static int store_misses;
     private static int cycles;
+    private static int least_recently_used;
+    private static int write_allocate;
+    private static int write_through;
 
     public static void main(String[] args) {
       if(args.length != 7) {
@@ -18,9 +21,9 @@ public class CacheSimulator {
           int num_sets = Integer.parseInt(args[0]);
           int num_blocks = Integer.parseInt(args[1]);
           int num_addresses = Integer.parseInt(args[2]);
-          int write_allocate = Integer.parseInt(args[3]);
-          int write_through = Integer.parseInt(args[4]);
-          int least_recently_used = Integer.parseInt(args[5]);
+          write_allocate = Integer.parseInt(args[3]);
+          write_through = Integer.parseInt(args[4]);
+          least_recently_used = Integer.parseInt(args[5]);
           String fileName = args[6];
 
           cache = new Cache (num_sets, num_blocks, num_addresses);
@@ -58,12 +61,11 @@ public class CacheSimulator {
         //Arguments[0] is store or load
         //Arguments[1] is memory address
         if (arguments.length >= 2) {
-            //write
             if (arguments[0].equals("s")) {
-              store(Integer.parseInt(arguments[1]), result);
+              store(Integer.parseInt(arguments[1]));
               total_stores++;
-            } else if (arguments[0].equals("l")) { //read
-                load(Integer.parseInt(arguments[1]), result);
+            } else if (arguments[0].equals("l")) {
+                load(Integer.parseInt(arguments[1]));
                 total_loads++;
             } else {
                 System.out.println("Error! First argument must be s or l.");
@@ -87,7 +89,7 @@ public class CacheSimulator {
 
     }
 
-    public static void store(int memory_address, String hit_or_miss) {
+    public static void store(int memory_address) {
       if(cache.search(memory_address).equals("hit")) {
         //handle hit
         store_hits++;
