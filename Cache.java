@@ -1,3 +1,10 @@
+/*
+
+Natasha Bornhorst - nbornho1@jhu.edu
+Elise Rodrigues - erodri20@jhu.edu
+
+*/
+
 public class Cache {
     private int num_sets;
     private int num_blocks;

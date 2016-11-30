@@ -1,3 +1,10 @@
+/*
+
+Natasha Bornhorst - nbornho1@jhu.edu
+Elise Rodrigues - erodri20@jhu.edu
+
+*/
+
 public class Block {
     private int num_bytes;
     private int words;

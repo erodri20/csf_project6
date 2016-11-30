@@ -1,3 +1,9 @@
+/*
+
+Natasha Bornhorst - nbornho1@jhu.edu
+Elise Rodrigues - erodri20@jhu.edu
+
+*/
 import java.io.*;
 
 public class CacheSimulator {
