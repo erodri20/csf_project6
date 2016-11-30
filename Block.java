@@ -48,6 +48,7 @@ public class Block {
     public void insert(String memory_address) {
       block[0] = memory_address;
       /*
+      //This is where we attempt to evict the block
       for(int i = 1; i < block.length; i++) {
         block[i] = "";
       }
