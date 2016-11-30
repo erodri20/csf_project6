@@ -30,21 +30,33 @@ public class Cache {
         if(cache[i].insertIfEmpty(memory_address)) {//returns true if inserted, false otherwise
           cycles += 100;
           cycles++;
+          //System.out.println("Memory address for load miss: " + memory_address);
           return cycles;
         }
       }
-      //if cache is full
+      //if cache is full, find cache block to use
+      cycles++;
+      //System.out.println("cache is full");
       if(least_recently_used == 1) {
-        if(leastRecentlyUsed()) {
+        Block chosen = leastRecentlyUsed();
+        if(chosen.isDirty()) {
+          System.out.println("cache block is dirty: " + memory_address);
           //if the block chosen was dirty, add 100 to cycles
           cycles += 100;
+          markAsNonDirty(chosen.getStartingAddress());
         }
+        //read data from memory into cache block
+        putDataInCacheBlock(memory_address, chosen.getStartingAddress());
         cycles += 100;
       } else {
-        if(fifo()) {
+        Block chosen = fifo();
+        if(chosen.isDirty()) {
           //if the block chosen was dirty, add 100 to cycles
           cycles += 100;
+          markAsNonDirty(chosen.getStartingAddress());
         }
+        //read data from memory into cache block
+        putDataInCacheBlock(memory_address, chosen.getStartingAddress());
         cycles += 100;
       }
       //mark the cache block as not dirty adds a cycle
@@ -52,7 +64,7 @@ public class Cache {
       return cycles;
     }
 
-    public boolean fifo() {
+    public Block fifo() {
       long fifo_time = cache[0].fifo().getTimeAdded();
       Block fifo_block = cache[0].fifo();
       for(int i = 0; i < cache.length; i++) {
@@ -62,10 +74,7 @@ public class Cache {
         }
       }
       resetFifo(fifo_block.getStartingAddress());
-      if(fifo_block.isDirty()) {
-        markAsNonDirty(fifo_block.getStartingAddress());
-      }
-      return fifo_block.isDirty();
+      return fifo_block;
     }
 
     public void resetFifo(String memory_address) {
@@ -76,7 +85,7 @@ public class Cache {
       }
     }
 
-    public boolean leastRecentlyUsed() {
+    public Block leastRecentlyUsed() {
       long lru_time = cache[0].leastRecentlyUsed().getTimeStamp();
       Block lru_block = cache[0].leastRecentlyUsed();
       for(int i = 0; i < cache.length; i++) {
@@ -85,10 +94,7 @@ public class Cache {
           lru_block = cache[i].leastRecentlyUsed();
         }
       }
-      if(lru_block.isDirty()) {
-        markAsNonDirty(lru_block.getStartingAddress());
-      }
-      return lru_block.isDirty();
+      return lru_block;
     }
 
     public void markAsNonDirty(String memory_address) {
@@ -101,8 +107,21 @@ public class Cache {
       //mark the block as dirty
       for(int i = 0; i < cache.length; i++) {
         if(cache[i].containsBlock(memory_address)) {
+          cache[i].markAsDirty(memory_address);
           break;
         }
+      }
+    }
+
+    public void putDataInCacheBlock(String memory_address, String starting_address) {
+      for(int i = 0; i < cache.length; i++) {
+        cache[i].putDataInCacheBlock(memory_address, starting_address);
+      }
+    }
+
+    public void print() {
+      for(int i = 0; i < cache.length; i++) {
+        cache[i].print();
       }
     }
 

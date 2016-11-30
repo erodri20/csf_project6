@@ -80,11 +80,30 @@ public class Set {
     public boolean containsBlock(String memory_address) {
       for(int i = 0; i < set.length; i++) {
         if(set[i].containsAddress(memory_address)) {
-          set[i].markAsDirty();
           return true;
         }
       }
       return false;
+    }
+
+    public void markAsDirty(String memory_address) {
+      for(int i = 0; i < set.length; i++) {
+        if(set[i].containsAddress(memory_address)) {
+          set[i].markAsDirty();
+        }
+      }
+    }
+
+    public void putDataInCacheBlock(String memory_address, String starting_address) {
+      for(int i = 0; i < set.length; i++) {
+        set[i].insert(memory_address);
+      }
+    }
+
+    public void print() {
+      for(int i = 0; i < set.length; i++) {
+        set[i].print();
+      }
     }
 
 }

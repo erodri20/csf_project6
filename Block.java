@@ -45,6 +45,15 @@ public class Block {
       return false;
     }
 
+    public void insert(String memory_address) {
+      block[0] = memory_address;
+      /*
+      for(int i = 1; i < block.length; i++) {
+        block[i] = "";
+      }
+      */
+    }
+
     public long getTimeStamp() {
       return time_stamp;
     }
@@ -71,6 +80,13 @@ public class Block {
 
     public void markAsDirty() {
       dirty = true;
+    }
+
+    public void print() {
+      for(int i = 0; i < block.length; i++) {
+        System.out.print(block[i] + " ");
+      }
+      System.out.println(dirty);
     }
 
 }

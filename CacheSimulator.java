@@ -78,6 +78,13 @@ public class CacheSimulator {
             } else {
                 System.out.println("Error! First argument must be s or l.");
             }
+
+            System.out.println("BEGIN");
+            cache.print();
+            System.out.println("END");
+            System.out.println();
+
+
         }
         else {
             System.out.println("Error! Too few arguments on line.");
@@ -117,7 +124,36 @@ public class CacheSimulator {
             store_hits++;
           } else {//handle miss
             //updates the block in main memory
-            cycles += 100;
+            //brings block to cache with lru or fifo method
+            if(least_recently_used == 1) {
+              //use lru method
+              Block chosen = cache.leastRecentlyUsed();
+              if(chosen.isDirty()) {
+                //if the block chosen was dirty
+                //data in block was written back to memory
+                //add 100 to cycles
+                cycles++;
+                cycles += 100;
+              }
+              //read data from memory into cache block
+              cache.putDataInCacheBlock(memory_address, chosen.getStartingAddress());
+              cycles++;
+              cycles+= 100;
+            } else {
+              //use fifo method
+              Block chosen = cache.fifo();
+              if(chosen.isDirty()) {
+                //if the block chosen was dirty
+                //data in block was written back to memory
+                //add 100 to cycles
+                cycles++;
+                cycles += 100;
+              }
+              //read data from memory into cache block
+              cache.putDataInCacheBlock(memory_address, chosen.getStartingAddress());
+              cycles++;
+              cycles += 100;
+            }
             store_misses++;
           }
         } else {//write back with write allocate
@@ -128,33 +164,40 @@ public class CacheSimulator {
             cycles++;
             store_hits++;
           } else {//handle miss
-            //updates block in main memory
-            cycles+= 100;
+            //find cache block to use
+            cycles++;
             //brings block to cache with lru or fifo method
             if(least_recently_used == 1) {
               //use lru method
-              if(cache.leastRecentlyUsed()) {
+              Block chosen = cache.leastRecentlyUsed();
+              if(chosen.isDirty()) {
                 //if the block chosen was dirty
                 //data in block was written back to memory
                 //add 100 to cycles
+                cycles++;
                 cycles += 100;
               }
               //read data from memory into cache block
+              cache.putDataInCacheBlock(memory_address, chosen.getStartingAddress());
+              cycles++;
               cycles+= 100;
             } else {
               //use fifo method
-              if(cache.fifo()) {
+              Block chosen = cache.fifo();
+              if(chosen.isDirty()) {
                 //if the block chosen was dirty
                 //data in block was written back to memory
                 //add 100 to cycles
+                cycles++;
                 cycles += 100;
               }
               //read data from memory into cache block
+              //read data from memory into cache block
+              cache.putDataInCacheBlock(memory_address, chosen.getStartingAddress());
               cycles += 100;
             }
             //mark block as dirty
             cache.markAsDirty(memory_address);
-            cycles++;
             store_misses++;
           }
         }
