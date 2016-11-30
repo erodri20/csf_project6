@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
-}
-{\colortbl;\red255\green255\blue255;}
+\f3\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 \margl1440\margr1440\vieww13840\viewh12760\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -240,4 +240,21 @@ Changing the Optimization Levels\
 \
 In the first version of matrix, the best optimization is O3. In the second version of matrix, O4 is the best optimization. The run time in the second version increases at first with optimization level, then decreases and there is a negligible difference between optimizations O3 and O4 in both versions of matrix. It appears that the best compiler optimizations for programs of this size are O3 and O4. \
 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 Problem 1: Cache Simulator\
+\
+To run as shown in assignment:\
+javac CacheSimulator.java\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f3 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 java CacheSimulator 256 4 16 1 0 1 gcc.trace\
+\
+
+\f1\fs22 \cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 \outl0\strokewidth0 Our cache is an array of sets where each set is an array of blocks and each block is an array of words. The cache is designed according to the parameters given. Depending on the instruction, the cache performs a load or a store, and depending on the flags, the load or store writes/reads from the cache/memory according to a certain behavior.\
+\
+Known issues:\
+The numbers for load hits, load misses, store hits, store misses, and cycles are all a bit off. We think there might be an issue with how we handle a load miss with write back and write allocate conditions. We also suspect there may be an issue with the way we add a block from memory to the cache. When we attempted to evict the block, the stats shifted further from the given output. That section of code is commented out.\
 }
