@@ -1,0 +1,243 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww13840\viewh12760\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Problem 1: Cache Experiments\
+\
+I, then J\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf0 \CocoaLigature0 [erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.064u
+\f1\b0  
+\f2\b 0.026s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.057u
+\f1\b0  
+\f2\b 0.033s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.051u
+\f1\b0  
+\f2\b 0.040s
+\f1\b0  0:00.09 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.054u
+\f1\b0  
+\f2\b 0.037s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.056u
+\f1\b0  
+\f2\b 0.035s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.056u
+\f1\b0  
+\f2\b 0.034s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.070u
+\f1\b0  
+\f2\b 0.020s
+\f1\b0  0:00.09 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.062u
+\f1\b0  
+\f2\b 0.028s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.067u
+\f1\b0  
+\f2\b 0.034s
+\f1\b0  0:00.10 90.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 0.048u
+\f1\b0  
+\f2\b 0.042s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+\
+==8658== \
+==8658== I   refs:      167,898,625\
+==8658== I1  misses:            670\
+==8658== LLi misses:            666\
+==8658== I1  miss rate:        0.00%\
+==8658== LLi miss rate:        0.00%\
+==8658== \
+==8658== D   refs:       83,942,751  (67,147,663 rd   + 16,795,088 wr)\
+==8658== D1  misses:      1,050,346  (     1,267 rd   +  1,049,079 wr)\
+==8658== LLd misses:      1,050,171  (     1,115 rd   +  1,049,056 wr)\
+==8658== D1  miss rate:         1.3% (       0.0%     +        6.2%  )\
+==8658== LLd miss rate:         1.3% (       0.0%     +        6.2%  )\
+==8658== \
+==8658== LL refs:         1,051,016  (     1,937 rd   +  1,049,079 wr)\
+==8658== LL misses:       1,050,837  (     1,781 rd   +  1,049,056 wr)\
+==8658== LL miss rate:          0.4% (       0.0%     +        6.2%  )\
+==8658== \
+==8658== Branches:       16,803,834  (16,803,611 cond +        223 ind)\
+==8658== Mispredicts:         5,988  (     5,928 cond +         60 ind)\
+==8658== Mispred rate:          0.0% (       0.0%     +       26.9%   )\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 J, then I
+\f1\fs22 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 [erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.172u
+\f1\b0  
+\f2\b 0.030s
+\f1\b0  0:01.20 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.171u
+\f1\b0  
+\f2\b 0.028s
+\f1\b0  0:01.20 99.1%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.174u
+\f1\b0  
+\f2\b 0.030s
+\f1\b0  0:01.20 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.172u
+\f1\b0  
+\f2\b 0.032s
+\f1\b0  0:01.20 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.160u
+\f1\b0  
+\f2\b 0.031s
+\f1\b0  0:01.19 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.181u
+\f1\b0  
+\f2\b 0.032s
+\f1\b0  0:01.21 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.161u
+\f1\b0  
+\f2\b 0.030s
+\f1\b0  0:01.19 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.156u
+\f1\b0  
+\f2\b 0.033s
+\f1\b0  0:01.19 99.1%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.165u
+\f1\b0  
+\f2\b 0.033s
+\f1\b0  0:01.20 99.1%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ time ./matrix\
+
+\f2\b 1.173u
+\f1\b0  
+\f2\b 0.030s
+\f1\b0  0:01.20 100.0%	0+0k 0+0io 0pf+0w\
+\
+==11649== \
+==11649== I   refs:      167,898,625\
+==11649== I1  misses:            670\
+==11649== LLi misses:            666\
+==11649== I1  miss rate:        0.00%\
+==11649== LLi miss rate:        0.00%\
+==11649== \
+==11649== D   refs:       83,942,751  (67,147,663 rd   + 16,795,088 wr)\
+==11649== D1  misses:     16,778,985  (     1,267 rd   + 16,777,718 wr)\
+==11649== LLd misses:     16,778,810  (     1,115 rd   + 16,777,695 wr)\
+==11649== D1  miss rate:        20.0% (       0.0%     +       99.9%  )\
+==11649== LLd miss rate:        20.0% (       0.0%     +       99.9%  )\
+==11649== \
+==11649== LL refs:        16,779,655  (     1,937 rd   + 16,777,718 wr)\
+==11649== LL misses:      16,779,476  (     1,781 rd   + 16,777,695 wr)\
+==11649== LL miss rate:          6.7% (       0.0%     +       99.9%  )\
+==11649== \
+==11649== Branches:       16,803,834  (16,803,611 cond +        223 ind)\
+==11649== Mispredicts:         5,988  (     5,928 cond +         60 ind)\
+==11649== Mispred rate:          0.0% (       0.0%     +       26.9%   )\
+\
+Changing the position of I and J in the second version of matrix.c causes the second set of miss rates to increase to 20% from 1.3%. Additionally, the LL miss rate increased from 0.4% to 6.7%. \
+\
+Changing the Size\
+When I decreased the size of the matrix, the LL miss rates all decreased. With size 4096 (originally), the LL miss rates were 0%, 20%, and 6.7%. Decreasing the size increased the first miss rate slightly (for size 1025, a miss rate of 0.01%), the second miss rate went down to 1.3%, and the third went down to 0.4%. These are the same miss rates as the matrix where \'93I\'94 came before \'93J\'94. When keeping this size of 1025 and changing the position of I and J back to \'93I\'94 then \'93J\'94, it appears that the miss rates are the same as before. Therefore, with a smaller matrix (around 1000) it does not appear to matter which order the indices are in. A sufficiently small matrices will have similar miss rates regardless of the order of the indices because the memory being accessed is all in the same cache block.\
+\
+Changing the Optimization Levels\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 I, then J
+\f1\fs22 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 [erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O0 -o matrix\
+
+\f2\b 0.055u 0.035s
+\f1\b0  0:00.09 88.8%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O1 -o matrix\
+
+\f2\b 0.012u 0.030s
+\f1\b0  0:00.04 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O2 -o matrix\
+
+\f2\b 0.011u 0.030s
+\f1\b0  0:00.04 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O3 -o matrix\
+
+\f2\b 0.003u 0.033s
+\f1\b0  0:00.03 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O4 -o matrix\
+
+\f2\b 0.005u 0.031s
+\f1\b0  0:00.03 100.0%	0+0k 0+0io 0pf+0w\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 J, then I\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf0 \CocoaLigature0 [erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O0 -o matrix\
+
+\f2\b 1.198u 0.027s
+\f1\b0  0:01.22 99.1%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O1 -o matrix\
+
+\f2\b 0.255u 0.032s
+\f1\b0  0:00.28 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O2 -o matrix\
+
+\f2\b 0.258u 0.030s
+\f1\b0  0:00.29 96.5%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O3 -o matrix\
+
+\f2\b 0.070u 0.032s
+\f1\b0  0:00.10 100.0%	0+0k 0+0io 0pf+0w\
+[erodri20@ugradx ~/csf_assignment6]$ gcc matrix.c -O4 -o matrix\
+
+\f2\b 0.067u 0.031s
+\f1\b0  0:00.09 100.0%	0+0k 0+0io 0pf+0w\
+\
+In the first version of matrix, the best optimization is O3. In the second version of matrix, O4 is the best optimization. The run time in the second version increases at first with optimization level, then decreases and there is a negligible difference between optimizations O3 and O4 in both versions of matrix. It appears that the best compiler optimizations for programs of this size are O3 and O4. \
+\
+}
